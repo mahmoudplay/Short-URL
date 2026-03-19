@@ -1,4 +1,4 @@
-export function getLinkShortedCode(length: number): string {
+export function getUrlShortedCode(length: number): string {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     let result = '';
     for (let i = 0; i < length; i++) {

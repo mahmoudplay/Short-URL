@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 
-export default function (req: Request, res: Response, next: NextFunction) {
-    if(!req.headers['authorization']) res.status(401).send('You are not authorized to access this route!')
+export default function authReq(req: Request, res: Response, next: NextFunction) {
+    if(!req.headers['authorization']) res.status(404).send('Not Found')
 
     if (req.headers['authorization'] === process.env.AUTH) {
         next();
     } else {
-        res.status(403).send('You are forbidden from accessing this route!')
+        res.status(404).send('Not Found')
     }
 }

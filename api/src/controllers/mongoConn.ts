@@ -14,7 +14,6 @@ export async function mongodbConnection(mongooseURI: string) {
 
         mongoose.Promise = global.Promise;
 
-
         mongoose.connection.on("error", (err) => {
             console.log(`[Database] Mongoose connection error: ${err.stack}`);
         });
