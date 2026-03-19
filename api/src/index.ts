@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import express, {Request, Response} from 'express';
+import cors from 'cors'
 import { mongodbConnection } from './controllers/mongoConn';
 import { ValidLink } from './utils/vaildUrl';
 import shortedUrls from './schemas/urlCodeSchema';
@@ -8,8 +9,10 @@ import authReq from './middlewares/auth';
 const port = process.env.PORT || 3000
 const app = express();
 
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 
 (async () => {
     await mongodbConnection(process.env.MONGODB_LINK!)
@@ -51,7 +54,7 @@ app.post("/", (req:Request, res:Response) => {
                 let newshortedUrls = new shortedUrls({ urlCode: urlCode, redirURL: url})
                 newshortedUrls.save();
                 
-                res.status(201).json({ shortedUrls: `${req.protocol}://${req.get("host")}/${urlCode}` })
+                res.status(201).json({ shortedUrl: `${req.protocol}://${req.get("host")}/${urlCode}` })
             }catch(err){
                 console.log(err);
                 res.status(500).json({ error: "error" })
