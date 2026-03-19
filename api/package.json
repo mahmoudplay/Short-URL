@@ -1,0 +1,33 @@
+{
+  "name": "short-api",
+  "version": "1.0.0",
+  "description": "An open source web and api to short links",
+  "main": "index.ts",
+  "scripts": {
+    "dev": "nodemon src/index",
+    "start": "node dist/index",
+    "build": "tsc ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mahmoudplay/Short-URL.git"
+  },
+  "author": "_mp1/qk8",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mahmoudplay/Short-URL/issues"
+  },
+  "homepage": "https://github.com/mahmoudplay/Short-URL#readme",
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/mongoose": "^5.11.96",
+    "@types/node": "^25.5.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "mongoose": "^8.23.0"
+  }
+}
