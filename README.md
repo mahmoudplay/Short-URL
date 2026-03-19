@@ -1,2 +1,2 @@
 # Short-URL
-Am open source web and api to short links
+An open source web and api to short links
