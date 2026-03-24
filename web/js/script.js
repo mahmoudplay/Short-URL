@@ -3,11 +3,9 @@ const urlLabel = document.querySelector("#shortUrl");
 const qr = document.querySelector("#qrCode")
 
 function ValidLink(url){
-  const linkRegex =
-    /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/gim;
+  const linkRegex = /^(https?:\/\/)?(www\.)?[-A-Z0-9+&@#\/%=~_|$?!:,.]+\.[A-Z]{2,}(\/.*)?$/i;
   return linkRegex.test(url);
 }
-
 
 async function showPopup() {
   const input = document.querySelector(".inputUrl input");

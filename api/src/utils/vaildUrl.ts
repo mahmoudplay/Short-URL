@@ -1,4 +1,4 @@
 export function ValidLink(url: string) : boolean {
-    const linkRegex = /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/igm;
+    const linkRegex = /^(https?:\/\/)?(www\.)?[-A-Z0-9+&@#\/%=~_|$?!:,.]+\.[A-Z]{2,}(\/.*)?$/i;
     return linkRegex.test(url);
 }

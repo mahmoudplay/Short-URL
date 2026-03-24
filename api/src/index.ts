@@ -1,7 +1,6 @@
 import 'dotenv/config';
 import express, {Request, Response} from 'express';
 import cors from 'cors'
-import QRCode from 'qrcode'
 import { mongodbConnection } from './controllers/mongoConn';
 import { ValidLink } from './utils/vaildUrl';
 import shortedUrls from './schemas/urlCodeSchema';
@@ -43,7 +42,14 @@ app.get('/:code', async (req:Request, res:Response) => {
     let urlCode = req.params.code;
     let getCodeData = await shortedUrls.findOne({ urlCode })
     
-    getCodeData ? res.status(301).redirect(getCodeData.redirURL) : res.status(404).send('Not Found')
+    if(getCodeData){
+        if (!/^https?:\/\//i.test(getCodeData.redirURL)) getCodeData.redirURL = "https://" + getCodeData.redirURL;
+
+        res.status(301).redirect(getCodeData.redirURL)
+    }else{
+        res.status(404).send('Not Found')
+    }
+    
 })
 
 app.post("/", async (req:Request, res:Response) => {
@@ -53,7 +59,7 @@ app.post("/", async (req:Request, res:Response) => {
         if(ValidLink(url)){
             try{
                 const urlCode = getUrlShortedCode(6);
-                let newshortedUrls = new shortedUrls({ urlCode: urlCode, redirURL: url})
+                let newshortedUrls = new shortedUrls({ urlCode, redirURL: url})
                 newshortedUrls.save();
 
                 res.status(201).json({ shortedUrl: `${req.protocol}://${req.get("host")}/${urlCode}`, qrCode: await qrCodeGenerator(`${req.protocol}://${req.get("host")}/${urlCode}`) })
