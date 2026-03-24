@@ -1,5 +1,6 @@
 const api = "http://localhost:3000/"
 const urlLabel = document.querySelector("#shortUrl");
+const qr = document.querySelector("#qrCode")
 
 function ValidLink(url){
   const linkRegex =
@@ -31,7 +32,8 @@ async function showPopup() {
 
     const shortedUrl = await apiReq.json();
 
-    urlLabel.innerHTML = shortedUrl.shortedUrl;;
+    urlLabel.innerHTML = shortedUrl.shortedUrl;
+    qr.src = shortedUrl.qrCode;
 
     document.getElementById("popup").classList.add("active");
     document.getElementById("overlay").classList.add("active");
@@ -49,17 +51,22 @@ function hideError() {
   document.getElementById("errorPopup").classList.remove("active");
   document.getElementById("overlay").classList.remove("active");
 }
+
+
 document
   .querySelector(".inputUrl input")
   .addEventListener("keydown", function (e) {
     if (e.key === "Enter") showPopup();
   });
+
+
 document.addEventListener("keydown", function (e) {
   if (e.key === "Escape") {
     hidePopup();
     hideError();
   }
 });
+
 
 function copyShortedUrl() {
   navigator.clipboard.writeText(urlLabel.innerHTML)
